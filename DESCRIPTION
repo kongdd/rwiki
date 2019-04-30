@@ -1,0 +1,17 @@
+Package: rwiki
+Title: Download wikibook in R
+Version: 0.0.0.9000
+Authors@R: c(
+    person("Dongdong", "Kong", role = c("aut", "cre"), email = "kongdd.sysu@gmail.com"))
+Description: What the package does (one paragraph).
+Depends: R (>= 3.5.3)
+Imports: httr, xml2, magrittr, rvest, tidyverse, data.table, 
+    stringr, purrr,
+    plyr
+License: GPL-3 | file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
+Suggests: 
+    testthat,
+    covr
