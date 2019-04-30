@@ -42,16 +42,19 @@ library(rwiki)
 # Use https_proxy, if you can't access wiki. If needn't, comment this line
 Sys.setenv(https_proxy="http://127.0.0.1:1080") 
 
+download_wikibook <- function(url, outdir = NULL) {
+    info <- wikibook(url, lang = "zh", .progress='text')
+    if (is.null(outdir)) outdir <- info$origin$title[1]
+
+    ## basic example code
+    plyr::m_ply(info$origin[, .(url = url, outfile = title)],
+                 write_pdf, outdir = outdir)
+
+    ## book in other language
+    plyr::m_ply(info$lang[, .(url = url, outfile = title)],
+                 write_pdf, outdir = outdir)
+}
+
 url  <- "https://en.wikipedia.org/wiki/User:Kongdd/Books/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E5%9F%BA%E7%A1%80"
-info <- wikibook(url, lang = "zh")
-
-outdir <- info$origin$title[1]
-
-## basic example code
-plyr::m_ply(info$origin[, .(url = url, outfile = title)],
-             write_pdf, outdir = outdir)
-
-## book in other language
-plyr::m_ply(info$lang[, .(url = url, outfile = title)],
-             write_pdf, outdir = outdir)
+download_wikibook(url)
 ```

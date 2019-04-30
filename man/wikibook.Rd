@@ -4,7 +4,7 @@
 \alias{wikibook}
 \title{wikibook}
 \usage{
-wikibook(url, lang = "en")
+wikibook(url, lang = "en", .progress = "text")
 }
 \arguments{
 \item{url}{the url of wiki book}

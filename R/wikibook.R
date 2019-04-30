@@ -38,7 +38,7 @@ fprintf <- function(fmt, x) {
 #' @importFrom purrr map map_int map_chr
 #' @import plyr
 #' @export
-wikibook <- function(url, lang = "en"){
+wikibook <- function(url, lang = "en", .progress="text"){
     url_root <- str_extract(url, ".*org")
     title <- basename(url) %>% fix_encoding() %>% paste0("wikibook_", ., "")
 

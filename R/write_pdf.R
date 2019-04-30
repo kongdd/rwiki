@@ -29,7 +29,7 @@ write_pdf <- function(url, outfile = NULL, outdir = ".", overwrite = FALSE){
     title <- gsub("(\\d.\\d|\\d.|\\d)[ ]|.pdf", "", basename(outfile)) %>%
         gsub("\\(", "\\\\(", .) %>%
         gsub("\\)", "\\\\)", .)
-    pattern <- sprintf("((\\d\\.\\d|\\d.|\\d)[ ]*)*(%s|%s).pdf",
+    pattern <- sprintf("((\\d\\.\\d|\\d.|\\d)[ ]*)(%s|%s).pdf",
                        title, gsub("[ ]+", "_", title))
 
     file_pdf <- dir(outdir, pattern, full.names = TRUE)[1]
@@ -50,14 +50,16 @@ write_pdf <- function(url, outfile = NULL, outdir = ".", overwrite = FALSE){
                    encode = "form",
                    write_disk(tmpfile, overwrite = overwrite),
                    progress())
+
         # download.file(url, outfile, mode="wb")
         file.rename(tmpfile, outfile)
         # p <- GET(url,
         #          write_disk(outfile, overwrite = overwrite),
         #          progress())
     } else {
-        cat(sprintf("[ok] file already exist: %s ... \n", url))
+        cat(sprintf("[ok] file already exist: %s ... \n", url %>% fix_encoding()))
     }
+
     # rm tmpfile
     on.exit({ if (file.exists(tmpfile)) file.remove(tmpfile) })
 }
